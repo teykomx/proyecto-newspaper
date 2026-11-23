@@ -8,5 +8,7 @@ Para programar el STM32 F411CEU6 se necesitan dos aplicaciones:
 
 - en proyecto>Core>Src>main.c Se programa casi todo,
 - en proyecto>Core>Inc Se pueden escribir "librerias", lo que nosotros usaremos para hacer operaciones matemáticas.
+
+- Si abres el .ioc abre el CubeMX, para acceder más rápido a la configuración del micro. Todo lo demás no lo vamos a tocar.
   
 *Descarga las ultimas versiones de los programas para no tener fallas.
