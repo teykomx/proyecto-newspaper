@@ -1,0 +1,42 @@
+clear; clc; close all;
+hold on;
+
+h = 0.05;
+t0 = 0;
+tf = 20;
+x1 = 4;
+x2 = 6;
+c = 7;
+k= 4;
+m = 3;
+
+n = (tf - t0)/h + 1;
+
+t = zeros(1, n);
+X = zeros(2, n);
+
+% Condiciones iniciales
+t(1) = t0;
+X(:,1) = [x1; x2];
+
+% Sistema
+A = [0, 1; -k/m, -c/m];
+X0 = [x1; x2];
+
+for i = 1:n-1
+    X(:, i+1) = X(:, i) + h * (A * X(:,i));
+    X0 = X0 + A * X0
+    t(i+1) = t(i) + h;
+end
+for t1 = 0:h:tf
+    XV = expm(A*t1)*X0
+    plot(t1, XV(1), '*b')
+    plot(t1, XV(2), '*r')
+
+end
+
+
+disp([t' X'])
+plot(t, X(1,:), 'b-');
+plot(t, X(2,:), 'r-');
+plot(t, X(2,:), 'r-');
