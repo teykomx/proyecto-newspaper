@@ -1,0 +1,30 @@
+clc; clear; close all;
+hold on;
+
+h = 0.5;
+t0 = 0;
+tf = 5;
+y1 = 4;
+y2 = 6;
+
+n = (tf - t0)/h + 1;
+
+t = zeros(1, n);
+Y = zeros(2, n);
+
+% Condiciones iniciales
+t(1) = t0;
+Y(:,1) = [y1; y2];
+
+% Sistema
+A = [-0.5, 0; -0.1, -0.3];
+B = [0; 4];
+
+for i = 1:n-1
+    Y(:, i+1) = Y(:, i) + h * (A * Y(:,i) + B);
+    t(i+1) = t(i) + h;
+end
+
+disp([t' Y'])
+plot(t, Y(1,:), 'b-');
+plot(t, Y(2,:), 'r-');
