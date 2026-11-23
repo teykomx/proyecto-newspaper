@@ -1,0 +1,31 @@
+clc; clear; close all; 
+hold on;
+
+h =  0.5; 
+t0 = 0;
+tf = 7.5; 
+y0 = 2; 
+
+a = (tf - t0)/h+1; 
+a_t = (a); 
+a_y = (a); 
+
+a_t(1) = t0; 
+a_y(1) = y0; 
+
+
+for i = 1 : a -1
+    y1 = y0 + h * (4*exp(0.8*t0)-0.5*t0); 
+    t1 = t0+h;
+    
+    a_t(i) = t1; 
+    a_y(i) = y1; 
+    
+    t0 = t1; 
+    y0 = y1; 
+    
+end
+
+a_t
+a_y
+plot(a_t, a_y, 'B-')
