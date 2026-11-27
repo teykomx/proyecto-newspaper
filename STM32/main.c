@@ -4,16 +4,6 @@
   * @file           : main.c
   * @brief          : Main program body
   ******************************************************************************
-  * @attention
-  *
-  * Copyright (c) 2026 STMicroelectronics.
-  * All rights reserved.
-  *
-  * This software is licensed under terms that can be found in the LICENSE file
-  * in the root directory of this software component.
-  * If no LICENSE file comes with this software, it is provided AS-IS.
-  *
-  ******************************************************************************
   */
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
@@ -32,6 +22,7 @@
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
 #define n 2
+#define MAX_STEPS 100 // (tf-t0)/h + 1 = 401
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -51,6 +42,10 @@ int x2 = 6;
 int c = 7;
 int k = 4;
 int m = 3;
+
+// ARREGLOS MOVIDOS AQUÍ PARA EVITAR STACK OVERFLOW
+float t[MAX_STEPS];
+float X[n][MAX_STEPS];
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -75,12 +70,10 @@ int main(void)
 {
 
   /* USER CODE BEGIN 1 */
-  float z = (tf - t0) / h + 1;
+  float z = 100; //((float)(tf - t0) / h) + 1.0f;
   int I = (int)z;
 
-  float t[I];
-  float X[n][I];
-
+  // Estas matrices son pequeñas (2x2 y 2x1), pueden quedarse locales sin problema.
   float A[n][n];
   float X0[n][1];
   float AX0[n][1];
@@ -140,6 +133,9 @@ int main(void)
           X[j][i + 1] = X0[j][0];
       }
   }
+
+  // AQUÍ PUEDES PONER UN BREAKPOINT
+  int fin_simulacion = 1;
   /* USER CODE END 2 */
 
   /* Infinite loop */
